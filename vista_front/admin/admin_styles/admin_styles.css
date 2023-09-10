@@ -1,0 +1,123 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+/* BACKGROUND */
+
+.body {
+	background: #222222;
+}
+
+
+/* LOGIN FORM */
+
+.admin-form-main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.admin-form-container {
+    padding: 5rem;
+}
+
+.admin-form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 10px 10px 20px;
+}
+
+.admin-form-h1 {
+    text-align: center;
+    padding: 1rem;
+}
+
+.form-admin-label {
+    margin: .5rem;
+}
+
+.admin-form-control {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ddd;
+    padding: .5rem;
+    margin: .5rem;
+    background-color: #ddd;
+    transition: all .3s ease;
+    border-radius: 10px;
+}
+
+.admin-form-control:focus {
+   
+    border-bottom: 1px solid #FF0000;
+
+}
+
+.admin-form-control:hover {
+    border-bottom: 1px solid #FF0000;
+}
+
+.admin-form-button-container {
+    width: 100%;
+    text-align: center;
+}
+
+.admin-form-button {
+    background-color: #FF0000;
+    color: #fff;
+    border: none;
+    border: 1px solid #FF0000;
+    margin: 2rem;
+    width: 50%;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all .3s ease;
+}
+
+.admin-form-button:hover {
+    background-color: #fff;
+    color: #FF0000;
+    transform: translateY(-5%);
+}
+
+.admin-a-container {
+    text-align: center;
+}
+
+.admin-a {
+    color: #000;
+    transition: all .3s ease;
+}
+
+.admin-a:hover {
+    color: rgb(44, 42, 42);
+}
+
+
+/* 403 */
+
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.error,a {
+    color: #fff;
+    text-align: center;
+}
+
+.error h1 {
+    text-align: center;
+    font-size: 50px;
+}
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="admin_styles/admin_styles.css">
+
+    <script src="admin_scripts/admin_js.js"></script>
+
+    <script src="../script/scrollreveal.js"></script>
+
+
+
+    <title>Dashboard | Login</title>
+</head>
+
+<body class="body">
+
+
+    <div class="admin-form-main-container">
+        <div class="admin-form-container">
+            <form action="../../controlador_back/config/validar-login.php" class="admin-form" method="POST">
+                <h1 class="admin-form-h1">Dashboard Login</h1>
+
+                <label class="form-admin-label" for="name">Usuario
+                    <input class="admin-form-control" type="text" name="name" id="" placeholder="Ingrese su usuario" required>
+                </label>
+
+                <label class="form-admin-label" for="password">Contraseña
+                    <input class="admin-form-control" type="password" name="password" id=""
+                        placeholder="Ingrese su contraseña" required>
+                </label>
+
+                <div class="admin-form-button-container">
+                    <input type="submit" value="Entrar al panel" class="admin-form-button">
+                </div>
+
+                <div class="admin-a-container">
+                    <a class="admin-a" href="../index.html">Volver a inicio</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+   <script src="../script/main.js"></script>
+
+</body>
+
+</html>
