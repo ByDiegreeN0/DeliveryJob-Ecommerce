@@ -1,8 +1,11 @@
 <?php 
 
+
+
 require_once("autoload.php");
 
-class Products extends DatabaseConnection {
+
+class ProductsClass extends DatabaseConnection {
     private $ProdIMG;
     private $ProdName;
     private $ProdDesc;
@@ -21,7 +24,23 @@ class Products extends DatabaseConnection {
     public function CreateProducts($img, $name, $desc, $price, $stock, $estado) {
         $sql = "INSERT INTO tbl_products (prod_img, prod_name, prod_desc, prod_price, prod_stock, prod_estado) VALUES (?,?,?,?,?,?)";
         $prepare = $this->Connect->prepare($sql);
-        $prepare->execute();
+
+        if($prepare){
+            $prepare->bind_param("sssiis", $img, $name, $desc, $price, $stock, $estado);
+
+            if($prepare->execute()){
+
+                $prepare->close();
+                return true;
+            }else {
+
+                $prepare->close();
+                return false;
+            }
+        }else {
+            return false;
+        }
+       
 
     }
 
@@ -39,18 +58,23 @@ class Products extends DatabaseConnection {
 
 
     public function UpdateProducts($id, $img, $name, $desc, $price, $stock, $estado){
-        $sql = "UPDATE tbl_products SET prod_img = ?, prod_name = ?. prod_desc = ?, prod_price = ?, prod_stock = ?, prod_estado = ? WHERE prod_id = ?";
+        $sql = "UPDATE tbl_products SET prod_img = ?, prod_name = ?, prod_desc = ?, prod_price = ?, prod_stock = ?, prod_estado = ? WHERE prod_id = ?";
         $prepare = $this->Connect->prepare($sql);
 
         if($prepare){
             $prepare->bind_param("sssiisi", $img, $name, $desc, $price, $stock ,$estado, $id);
 
             if($prepare->execute()){
+
+                $prepare->close();
                 return true;
+                
             }else {
+
+                $prepare->close();
                 return false;
+               
             }
-            $prepare->close();
         }
         return false;
     }
@@ -64,11 +88,16 @@ class Products extends DatabaseConnection {
             $prepare->bind_param("i", $id);
 
             if($prepare->execute()){
+
+                $prepare->close();
                 return true;
+
             }else {
+
+                $prepare->close();
                 return false;
             }
-            $prepare->close();
+           
         }
         return false;
     }
@@ -77,5 +106,3 @@ class Products extends DatabaseConnection {
 
   
 }
-
-?>

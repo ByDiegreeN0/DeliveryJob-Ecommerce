@@ -1,5 +1,5 @@
 <?php 
-require_once("../../modelo_db/connect/connection.php");
+require_once("../../modelo_db/Models/autoload.php");
 
 $ConnectionDB = new DatabaseConnection();
 $Connect = $ConnectionDB->connectDB();

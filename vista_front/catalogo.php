@@ -1,6 +1,6 @@
 <?php
 
-require("../modelo_db/connect/connection.php");
+require("../modelo_db/Models/autoload.php");
 
 $ConnectionDB = new DatabaseConnection();
 $Connect = $ConnectionDB->connectDB();

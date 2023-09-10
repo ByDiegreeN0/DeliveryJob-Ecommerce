@@ -1,6 +1,7 @@
 <?php 
 
-require("../config/conexion.php");
+require("../../modelo_db/Models/autoload.php");
+
 
 
 $MensajeID = $_GET['id'];

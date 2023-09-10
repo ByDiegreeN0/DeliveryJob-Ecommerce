@@ -16,7 +16,15 @@ class Admin extends DatabaseConnection {
     }
 
     public function ReadAdmin() {
-        // Crear Script
+        $sql = "SELECT * FROM tbl_admin";
+        $row = $this->Connect->query($sql);
+
+        if($row){
+            return $row->fetch_all(MYSQLI_ASSOC);
+        }else {
+            return false;
+        }
+        
     }
 }
 ?>
