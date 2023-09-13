@@ -21,12 +21,12 @@ class ProductsClass extends DatabaseConnection {
     }
 
 
-    public function CreateProducts($img, $name, $desc, $price, $stock, $estado) {
-        $sql = "INSERT INTO tbl_products (prod_img, prod_name, prod_desc, prod_price, prod_stock, prod_estado) VALUES (?,?,?,?,?,?)";
+    public function CreateProducts($img, $name, $desc, $price, $stock) {
+        $sql = "INSERT INTO tbl_products (prod_img, prod_name, prod_desc, prod_price, prod_stock) VALUES (?,?,?,?,?)";
         $prepare = $this->Connect->prepare($sql);
 
         if($prepare){
-            $prepare->bind_param("sssiis", $img, $name, $desc, $price, $stock, $estado);
+            $prepare->bind_param("sssii", $img, $name, $desc, $price, $stock);
 
             if($prepare->execute()){
 

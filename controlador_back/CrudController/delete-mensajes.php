@@ -2,15 +2,11 @@
 
 require("../../modelo_db/Models/autoload.php");
 
+$Messages = new MessagesClass;
 
+$id = $_GET['id'];
 
-$MensajeID = $_GET['id'];
-
-
-$sql = "DELETE FROM tbl_message where message_id = '$MensajeID'";
-$result = mysqli_query($conexion, $sql);
-
-if($result) {
+if($Messages->DeleteMessage($id)) {
     echo  "<script>
     alert('Se ha eliminado el mensaje con exito');
     window.location.href = '../../vista_front/admin/message.php';

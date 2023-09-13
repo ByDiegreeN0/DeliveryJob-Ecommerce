@@ -26,5 +26,73 @@ class Admin extends DatabaseConnection {
         }
         
     }
+
+   
+
+    private function CreateAdmin($Ausername, $Apassword, $Aemail){
+
+        $sql = "INSERT INTO tbl_admin (admin_username, admin_password, admin_email) VALUES (?,?,?)";
+        $prepare = $this->Connect->prepare($sql);
+
+        if($prepare){
+
+            $prepare->bind_param("sss",$Ausername, $Apassword, $Aemail);
+
+            if($prepare->execute()){
+
+                $prepare->close();
+                return true;
+            }else {
+                $prepare->close();
+                return false;
+            }
+        }else {
+            return false;
+        }
+    }
+
+    private function UpdateAdmin($Ausername, $Apassword, $Aemail){
+
+        $sql = "UPDATE tbl_admin SET admin_username = ?, admin_password = ?, admin_email = ?";
+        $prepare = $this->Connect->prepare($sql);
+
+        if($prepare){
+
+            $prepare->bind_param("sss",$Ausername, $Apassword, $Aemail);
+
+            if($prepare->execute()){
+
+                $prepare->close();
+                return true;
+            }else {
+                $prepare->close();
+                return false;
+            }
+        }else {
+            return false;
+        }
+    }
+
+    private function DeleteAdmin($Aid){
+        $sql = "DELETE FROM tbl_admin WHERE admin_id = ?";
+
+        $prepare = $this->Connect->prepare($sql);
+
+        if($prepare){
+
+            $prepare->bind_param("i",$Aid);
+
+            if($prepare->execute()){
+
+                $prepare->close();
+                return true;
+            }else {
+                $prepare->close();
+                return false;
+            }
+        }else {
+            return false;
+        }
+    }
 }
-?>
+
