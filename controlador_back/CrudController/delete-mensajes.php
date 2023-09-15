@@ -2,7 +2,7 @@
 
 require("../../modelo_db/Models/autoload.php");
 
-$Messages = new MessagesClass;
+$Messages = new MessageClass;
 
 $id = $_GET['id'];
 

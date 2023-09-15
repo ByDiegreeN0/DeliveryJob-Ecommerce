@@ -159,7 +159,9 @@ $id = $_GET['id'];
                 </div>
 
                 <div class="edit-products-content">
-                    <form class="edit-products-form" action="" method="POST">
+                    <form class="edit-products-form" action="../../controlador_back/CrudController/update-articulos.php" method="POST">
+
+                        <input type="hidden" name="id" value="<?php echo $row['prod_id']; ?>">
 
                         <label for="name">
                             <h2>Nombre del articulo</h2>
@@ -224,7 +226,9 @@ $id = $_GET['id'];
             <form action="" class="reminder-modal-form">
                 <h2>Ingresar Nuevo producto</h2>
 
-                <form action="../../controlador_back/CRUD/insert-articulos.php" method="post" enctype="multipart/form-data">
+                <form action="../../controlador_back/CrudController/insert-articulos.php" method="post" enctype="multipart/form-data">
+
+
                     <label for="name">Nombre
                         <input class="form-control" type="text" name="name" id="" placeholder="Nombre del producto">
                     </label>
@@ -234,7 +238,7 @@ $id = $_GET['id'];
                     </label>
 
                     <label for="precio">Precio
-                        <input class="form-control" type="number" name="precio" id="" placeholder="Precio del producto">
+                        <input class="form-control" type="number" name="price" id="" placeholder="Precio del producto">
                     </label>
 
                     <label for="stock">Stock

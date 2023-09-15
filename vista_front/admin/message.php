@@ -147,7 +147,7 @@ if ($current_session == null || $current_session == ""){
 
             <?php foreach ($Connect->query("SELECT * FROM tbl_message") as $row) { ?>
                 <div class="message-box">
-                    <a href="../../controlador_back/CRUD/delete-mensajes.php?id=<?php echo $row['message_id']; ?>"><button class="message-box-delete">
+                    <a href="../../controlador_back/CrudController/delete-mensajes.php?id=<?php echo $row['message_id']; ?>"><button class="message-box-delete">
                             <span class="material-symbols-outlined">
                                 delete
                             </span>

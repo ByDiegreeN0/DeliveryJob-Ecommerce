@@ -2,16 +2,15 @@
 
 require_once("../../modelo_db/Models/autoload.php");
 
+$Message = new MessageClass;
 
-$NameMensaje = $_POST['name'];
-$AsuntoMensaje = $_POST['asunto'];
-$CorreoMensaje = $_POST['correo'];
-$Mensaje = $_POST['mensaje'];
 
-$sql = "INSERT INTO tbl_message (message_name, message_asunto, message_email, message_m) VALUES ('$NameMensaje','$AsuntoMensaje', '$CorreoMensaje', '$Mensaje')";
-$result = mysqli_query($conexion, $sql);
+$Name = $_POST['name'];
+$Email = $_POST['asunto'];
+$Asunto = $_POST['email'];
+$Texto = $_POST['mensaje'];
 
-if($result) {
+if($Message->CreateMessage($Name, $Email, $Asunto, $Texto)) {
     echo  "<script>
     alert('Se ha enviado tu mensaje con exito');
     window.location.href = '../../vista_front/index.html';

@@ -2,7 +2,7 @@
 require_once("autoload.php");
 
 
-class Users extends DatabaseConnection {
+class UsersClass extends DatabaseConnection {
 
     private $UserUsername;
     private $UserPassword;
@@ -22,7 +22,7 @@ class Users extends DatabaseConnection {
     }
 
     public function CreateUser($username, $password, $ident, $realname, $email, $phonenumber, $addres){
-       $sql = "INSERT INTO tbl_users (user_username, user_password, user_indet, user_realname, user_email, user_phonenumber, user_addres) VALUES (?,?,?,?,?,?,?,?)";
+       $sql = "INSERT INTO tbl_users (user_username, user_password, user_ident, user_realname, user_email, user_phonenumber, user_address) VALUES (?,?,?,?,?,?,?)";
        $prepare = $this->Connect->prepare($sql);
 
        if($prepare){

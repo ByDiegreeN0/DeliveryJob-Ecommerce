@@ -253,8 +253,12 @@ if ($current_session == null || $current_session == ""){
         <div class="dashboard-reminder-modal" id="ReminderModal">
             <div class="dashboard-reminder-modal-content">
                 <span class="dashboard-reminder-modal-close">&times;</span>
-                <form action="" class="reminder-modal-form">
+                <form action="../../controlador_back/CrudController/insert-notas.php" class="reminder-modal-form" method="POST">
                     <h2>Texto de la nota</h2>
+
+                    <label for="tittle">
+                        <input class="form-control" type="text" name="tittle" id="" placeholder="ingrese el titulo de la nota">
+                    </label>
 
                     <label for="text">
                         <textarea class="reminder-form-control" name="text" id="" cols="30" rows="10"></textarea>

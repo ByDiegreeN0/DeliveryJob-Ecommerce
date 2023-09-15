@@ -3,7 +3,7 @@
 require_once("autoload.php");
 
 
-class MessagesClass extends DatabaseConnection {
+class MessageClass extends DatabaseConnection {
 
     private $MessageName;
     private $MessageAsunto;
