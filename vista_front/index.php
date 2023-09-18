@@ -1,3 +1,16 @@
+<?php
+
+session_start();
+$current_session = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
+
+if ($current_session !== null && isset($current_session['user_id'])) {
+    $user_id = $current_session['user_id'];
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,15 +25,13 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="styles/styles.css">
 
     <link rel="icon" href="img/Icon/DeliveryJob.ico">
 
     <script src="script/scrollreveal.js"></script>
-
     <title>DeliveryJob | Inicio</title>
 </head>
 
@@ -29,11 +40,11 @@
     <div class="responsive-nav-container">
         <nav class="responsive-nav">
             <ul class="responsive-nav-ul" id="responsive-nav-ul">
-                <li> <a href="index.html">
+                <li> <a href="index.php">
                         <span class="material-symbols-outlined">
                             home
                         </span>
-                        <h3 class="responsive-h3" >Inicio</h3>
+                        <h3 class="responsive-h3">Inicio</h3>
                     </a>
                 </li>
 
@@ -67,23 +78,46 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="register.html">
-                        <span class="material-symbols-outlined">
-                            how_to_reg
-                        </span>
-                        <h3 class="responsive-h3">Registrarse</h3>
-                    </a>
-                </li>
+                <?php if (empty($current_session)) { ?>
+                    <li>
+                        <a href="register.html">
+                            <span class="material-symbols-outlined">
+                                how_to_reg
+                            </span>
+                            <h3 class="responsive-h3">Registrarse</h3>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="login.html">
-                        <span class="material-symbols-outlined">
-                            login
-                        </span>
-                        <h3 class="responsive-h3">Iniciar Sesión</h3>
-                    </a>
-                </li>
+                    <li>
+                        <a href="login.html">
+                            <span class="material-symbols-outlined">
+                                login
+                            </span>
+                            <h3 class="responsive-h3">Iniciar Sesión</h3>
+                        </a>
+                    </li>
+                <?php } else { ?>
+
+                    <li>
+                        <a href="users/cart.php?userid=<?php echo $user_id ?>">
+                            <span class="material-symbols-outlined">
+                                shopping_cart
+                            </span>
+                            <h3 class="responsive-h3">Carrito de compras</h3>
+                        </a>
+                    </li>
+                    
+
+                    <li>
+                        <a href="users/user.php?userid=<?php echo $user_id ?>">
+                            <span class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            <h3 class="responsive-h3">Cuenta</h3>
+                        </a>
+                    </li>
+
+                <?php } ?>
             </ul>
 
             <div class="responsive-nav-burger" id="responsive-nav-burger">
@@ -98,15 +132,57 @@
         <nav class="nav">
 
             <ul>
-                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.php">Inicio</a></li>
                 <li><a href="catalogo.php">Catalogo</a></li>
                 <li><a href="#aboutUs">Sobre Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
 
             <div class="nav-button-container">
-                <a href="register.html"><button class="nav-button">Registrarse</button></a>
-                <a href="login.html"><button class="nav-button button-login">Iniciar Sesión</button></a>
+                <?php if (empty($current_session)) { ?>
+
+                    <a href="register.html"><button class="nav-button">Registrarse</button></a>
+                    <a href="login.html"><button class="nav-button button-login">Iniciar Sesión</button></a>
+
+                <?php } else { ?>
+                    <div class="nav-user-container">
+
+                        <div class="nav-cart">
+                            <a href="users/cart.php?userid=<?php echo $user_id ?>">
+                                <span class="material-symbols-outlined">
+                                    shopping_cart
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="nav-user">
+
+                            <div class="nav-user-img">
+                                <img src="img/body/user.png" alt="">
+                            </div>
+
+                            <div class="nav-user-dropdown">
+
+                                <div class="nav-user-dropdown-content">
+                                    <a href="users/user.php?userid=<?php echo $user_id ?>">Configuración</a>
+
+                                </div>
+
+                                <div class="nav-user-dropdown-content">
+                                    <a href="../controlador_back/config/user-logout.php">Cerrar Sesión</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+                <?php } ?>
+
+
             </div>
         </nav>
     </div>
@@ -174,8 +250,7 @@
             </label>
 
             <label for="mensaje">Mensaje
-                <textarea name="mensaje" class="form-control-textarea" id="" cols="30" rows="10"
-                    placeholder="Cuentanos, ¿en que te podemos ayudar?"></textarea>
+                <textarea name="mensaje" class="form-control-textarea" id="" cols="30" rows="10" placeholder="Cuentanos, ¿en que te podemos ayudar?"></textarea>
             </label>
 
             <div class="form-submit-container">
@@ -186,36 +261,17 @@
 
 
     <div class="maps-container">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254508.3947267588!2d-74.27261648633684!3d4.648620627274359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9bfd2da6cb29%3A0x239d635520a33914!2zQm9nb3TDoQ!5e0!3m2!1ses!2sco!4v1693624051725!5m2!1ses!2sco"
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254508.3947267588!2d-74.27261648633684!3d4.648620627274359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9bfd2da6cb29%3A0x239d635520a33914!2zQm9nb3TDoQ!5e0!3m2!1ses!2sco!4v1693624051725!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <div class="footer-container">
         <footer class="footer">
-            <div class="footer-box">
-                <ul>
-                    <li><a href="">Politica de devolución</a></li>
-                    <li><a href="">Terminos y condiciones</a></li>
-                    <li><a href="">Trabaja con nosotros</a></li>
-                    <li><a href="">Preguntas frecuentes</a></li>
-                </ul>
+            <div class="footer-p-container">
+                <p class="footer-p"><b>Copyright:</b> Todos los derechos reservados</p>
             </div>
-
-            <div class="footer-box">
-                <ul>
-                    <li><a href="">Compras al por mayor</a></li>
-                    <li><a href="">Sucursales</a></li>
-                    <li><a href="">Servicio al cliente</a></li>
-                </ul>
-            </div>
-
 
         </footer>
-        <div class="footer-p-container">
-            <p class="footer-p"><b>Copyright:</b> Todos los derechos reservados</p>
-        </div>
+
     </div>
 
 

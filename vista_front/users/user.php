@@ -1,21 +1,23 @@
 <?php
 
-require("../modelo_db/Models/autoload.php");
+require_once("../../modelo_db/Models/autoload.php");
 
 session_start();
 $current_session = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
 if ($current_session !== null && isset($current_session['user_id'])) {
     $user_id = $current_session['user_id'];
+} else {
+    echo "
+    <script>
+        window.location.href = '../login.html';
+        alert('No has iniciado sesión, inica sesión o crea una cuenta para usar esta funcion');
+    </script>
+    ";
 }
 
-$ConnectionDB = new DatabaseConnection();
-$Connect = $ConnectionDB->connectDB();
-
-$ProdID = $_GET['id'];
-
-
-
+$Users = new UsersClass;
+$Users = $Users->GetUserDataByID($_GET['userid']);
 
 ?>
 
@@ -35,14 +37,14 @@ $ProdID = $_GET['id'];
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    <link rel="stylesheet" href="../styles/styles.css">
 
-    <link rel="stylesheet" href="styles/styles.css">
+
+    <link rel="icon" href="../img/Icon/DeliveryJob.ico">
 
     <script src="script/scrollreveal.js"></script>
 
-    <link rel="icon" href="img/Icon/DeliveryJob.ico">
-
-    <title>DeliveryJob | Productos</title>
+    <title>DeliveryJob | Datos Personales</title>
 </head>
 
 <body class="body">
@@ -50,7 +52,7 @@ $ProdID = $_GET['id'];
 <div class="responsive-nav-container">
         <nav class="responsive-nav">
             <ul class="responsive-nav-ul" id="responsive-nav-ul">
-                <li> <a href="index.php">
+                <li> <a href="../index.php">
                         <span class="material-symbols-outlined">
                             home
                         </span>
@@ -59,7 +61,7 @@ $ProdID = $_GET['id'];
                 </li>
 
                 <li>
-                    <a href="catalogo.php">
+                    <a href="../catalogo.php">
                         <span class="material-symbols-outlined">
                             storefront
                         </span>
@@ -69,7 +71,7 @@ $ProdID = $_GET['id'];
 
                 <li>
 
-                    <a href="index.php#aboutUs">
+                    <a href="../index.php#aboutUs">
                         <span class="material-symbols-outlined">
                             chat
                         </span>
@@ -80,7 +82,7 @@ $ProdID = $_GET['id'];
 
 
                 <li>
-                    <a href="index.php#contacto">
+                    <a href="../index.php#contacto">
                         <span class="material-symbols-outlined">
                             contact_mail
                         </span>
@@ -90,7 +92,7 @@ $ProdID = $_GET['id'];
 
                 <?php if (empty($current_session)) { ?>
                     <li>
-                        <a href="register.html">
+                        <a href="../register.html">
                             <span class="material-symbols-outlined">
                                 how_to_reg
                             </span>
@@ -99,7 +101,7 @@ $ProdID = $_GET['id'];
                     </li>
 
                     <li>
-                        <a href="login.html">
+                        <a href="../login.html">
                             <span class="material-symbols-outlined">
                                 login
                             </span>
@@ -142,10 +144,10 @@ $ProdID = $_GET['id'];
         <nav class="nav">
 
             <ul>
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="catalogo.php">Catalogo</a></li>
-                <li><a href="index.php#aboutUs">Sobre Nosotros</a></li>
-                <li><a href="index.php#contacto">Contacto</a></li>
+                <li><a href="../index.php">Inicio</a></li>
+                <li><a href="../catalogo.php">Catalogo</a></li>
+                <li><a href="../index.php#aboutUs">Sobre Nosotros</a></li>
+                <li><a href="../index.php#contacto">Contacto</a></li>
             </ul>
 
             <div class="nav-button-container">
@@ -158,7 +160,7 @@ $ProdID = $_GET['id'];
                     <div class="nav-user-container">
 
                         <div class="nav-cart">
-                            <a href="users/cart.php?userid=<?php echo $user_id ?>">
+                            <a href="cart.php?userid=<?php echo $user_id ?>">
                                 <span class="material-symbols-outlined">
                                     shopping_cart
                                 </span>
@@ -168,18 +170,18 @@ $ProdID = $_GET['id'];
                         <div class="nav-user">
 
                             <div class="nav-user-img">
-                                <img src="img/body/user.png" alt="">
+                                <img src="../img/body/user.png" alt="">
                             </div>
 
                             <div class="nav-user-dropdown">
 
                                 <div class="nav-user-dropdown-content">
-                                    <a href="users/user.php?userid=<?php echo $user_id ?>">Configuración</a>
+                                    <a href="user.php?userid=<?php echo $user_id ?>">Configuración</a>
 
                                 </div>
 
                                 <div class="nav-user-dropdown-content">
-                                    <a href="../controlador_back/config/user-logout.php">Cerrar Sesión</a>
+                                    <a href="../../controlador_back/config/user-logout.php">Cerrar Sesión</a>
                                 </div>
                             </div>
 
@@ -197,61 +199,56 @@ $ProdID = $_GET['id'];
         </nav>
     </div>
 
-    <div class="item-container">
-        <div class="img-container">
-            <img src="img/body/main.jfif" alt="producto">
-        </div>
+    <section class="edit-container">
+        <h1>Editar datos personales</h1>
 
-        <?php foreach ($Connect->query("SELECT * FROM tbl_products WHERE prod_id = $ProdID") as $row) { ?>
-            <div class="item-content">
+        <?php if($Users){
+            foreach($Users as $row){;
+         ?>
+        <form action="" class="edit-form" method="POST">
 
-                <h1 class="item-content-h1"><?php echo $row['prod_name'] ?></h1>
-                <p class="item-content-p"><b>Descripción: <br><br></b><?php echo $row['prod_desc'] ?></p>
-                <div class="item-price">
-                    <h4><b>Precio:</b><br>$<?php echo $row['prod_price'] ?></h4>
-                    <h4><b>Stock:</b><br><?php echo $row['prod_stock'] ?></h4>
-                </div>
+            <input type="hidden" name="id" value="<?php echo $row['user_id']; ?>" required>
 
-                <div class="catalogo-item-details-button-container">
-                    <div class="catalogo-item-details-content">
-                        <a href=""><button class="catalogo-item-button catalogo-item-button-edit">Comprar Ahora</button></a>
-                    </div>
+            <div class="edit-container-box">
+                <label for="ident">DNI
+                    <input class="form-control" type="number" name="ident" id="" placeholder="Ingrese su DNI" required value="<?php echo $row['user_ident']; ?>">
+                </label>
 
-                    <div class="catalogo-item-details-content">
-                        <form action="">
-                            <input type="hidden" name="id" value="<?php echo $row['prod_id'] ?>">
-                            <input class="catalogo-item-button catalogo-item-button-submit" type="submit" value="Agregar al carrito" required>
-                            <input class="catalogo-item-button-form" type="number" name="cantidad" id="" required placeholder="cantidad" value="1">
-                        </form>
-                    </div>
+                <label for="username">Nombre de Usuario
+                    <input class="form-control" type="text" name="username" id="" placeholder="Ingrese su nuevo nombre de usuario" required value="<?php echo $row['user_username']; ?>">
+                </label>
 
-                </div>
-
-
-
-
+                <label for="realname">Nombre Real
+                    <input class="form-control" type="text" name="realname" id="" placeholder="Ingrese su nombre real" required value="<?php echo $row['user_realname']; ?>">
+                </label>
             </div>
-        <?php  } ?>
 
-    </div>
+            <div class="edit-container-box">
+                <label for="email">Correo Electronico
+                    <input class="form-control" type="email" name="email" id="" placeholder="Ingrese su correo electronico" required value="<?php echo $row['user_email']; ?>">
+                </label>
 
-    <div class="main-catalogo">
-        <?php foreach ($Connect->query("SELECT * FROM tbl_products LIMIT 4") as $row) { ?>
-            <div class="catalogo-item catalogo-item-details">
-                <div class="catalogo-item-img">
-                    <img src="img/body/tenis.webp" alt="">
-                </div>
-                <h2 class="catalogo-item-tittle"><?php echo $row['prod_name'] ?></h2>
-                <p class="catalogo-item-price"><?php echo $row['prod_price'] ?></p>
-                <div class="catalogo-item-button-container">
-                    <a href="item.php?id=<?php echo number_format($row['prod_id'], 2, ".", ",") ?>"><button class="catalogo-item-button">Ver Producto</button></a>
-                </div>
+                <label for="phonenumber">Número de teléfono
+                    <input class="form-control" type="number" name="phonenumberr" id="" placeholder="Número de teléfono" required value="<?php echo $row['user_phonenumber']; ?>">
+                </label>
             </div>
-        <?php  } ?>
-
-    </div>
 
 
+            <label for="pass">Contraseña
+                <input class="form-control" type="password" name="pass" id="" placeholder="Ingrese su nueva contraseña" required>
+            </label>
+
+            <label for="address">Dirección
+                <input class="form-control" type="text" name="address" id="" placeholder="Ingrese su dirección" required value="<?php echo $row['user_address']; ?>">
+            </label>
+
+            <div class="form-submit-container">
+                <input class="form-submit" type="submit" value="Guardar Cambios">
+            </div>
+        </form>
+
+        <?php }} ?>
+    </section>
 
 
     <div class="footer-container">
@@ -265,8 +262,8 @@ $ProdID = $_GET['id'];
     </div>
 
 
-    <script src="script/responsive-nav.js"></script>
-    <script src="script/main.js"></script>
+    <script src="../script/main.js"></script>
+    <script src="../script/responsive-nav.js"></script>
 
 </body>
 

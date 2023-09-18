@@ -73,6 +73,72 @@
     color: #5c5a5a;
 }
 
+/* user nav */
+
+.nav-user-container {
+    display: flex;
+}
+
+.nav-cart span {
+    padding: 1.8rem;
+    color: #000;
+    transition: all .3s ease;
+}
+
+.nav-cart span:hover {
+    color: #ff0000;
+}
+
+.nav-user {
+    width: 40px;
+    height: 40px;
+    box-shadow: 1px 1px 5px;
+    margin: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nav-user-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px;
+    min-width: 180px;
+    padding: 1rem;
+}
+
+.nav-user-dropdown a{
+    color: #000;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.nav-user-dropdown a:hover {
+    color: #FF0000;
+}
+
+.nav-user-dropdown-content {
+  padding: 10px;
+   
+}
+
+
+.nav-user:hover .nav-user-dropdown {
+    display: block;
+}
+
+
+.nav-user-img {
+    width: 100%;
+    height: 100%;
+}
+
+.nav-user-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
 /* Responsive Nav */
 
 
@@ -326,6 +392,7 @@ iframe {
 
 .footer-p {
     text-align: center;
+    font-size: 25px;
 }
 
 
@@ -345,8 +412,10 @@ iframe {
     margin: 1rem;
 }
 
+
 .catalogo-item-img {
     width: 100%;
+    justify-content: flex-start;
 }
 
 .catalogo-item-img img {
@@ -365,6 +434,17 @@ iframe {
     text-align: center;
 }
 
+.catalogo-item-details-button-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.catalogo-item-details-content {
+    width: 100%;
+}
+
 .catalogo-item-button {
     background-color: #FF0000;
     border: none;
@@ -375,6 +455,17 @@ iframe {
     transition: all .3s ease;
     margin-top: 15px;
     cursor: pointer;
+}
+
+.catalogo-item-button-submit {
+    background-color: #fff;
+    color: #FF0000;
+    transition: all .3s ease;
+}
+
+.catalogo-item-button-submit:hover {
+    background-color: #ff0000;
+    color: #fff;
 }
 
 .item-container {
@@ -406,18 +497,26 @@ iframe {
 
 .catalogo-item-button-edit {
     width: 100%;
+    padding: 1rem;
 }
 
-.catalogo-item-button-edit-2 {
-    justify-content: flex-start;
+.catalogo-item-button-edit:hover {
+    background-color: #aa1313;
+    border: 1px solid #aa1313;
 }
 
 
-.user-form-container {
-   padding-top: 100px;
+.catalogo-item-button-form {
+    width: 80px;
+    height: 40px;
 }
+
 
 /* USER Login/Register STYLES */
+
+.user-form-container {
+    padding-top: 100px;
+ }
 
 .user-form {
     width: 650px;
@@ -442,6 +541,31 @@ iframe {
     padding: 1rem;
 }
 
+/* Edit Users */
+
+.edit-container {
+    margin-top: 100px;
+    width: 100%;
+}
+
+.edit-container h1 {
+    text-align: center;
+    padding: 2rem;
+}
+
+.edit-container .edit-form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+
+.edit-form label {
+    margin: 1rem;
+}
+
+.edit-container-box {
+    display: flex;
+}
 
 
 @media screen and (max-width:767px) {
