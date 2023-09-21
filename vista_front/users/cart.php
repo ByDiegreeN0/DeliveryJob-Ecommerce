@@ -36,7 +36,7 @@ if ($current_session !== null && isset($current_session['user_id'])) {
     <link rel="stylesheet" href="../styles/styles.css">
 
 
-    <link rel="icon" href="img/Icon/DeliveryJob.ico">
+    <link rel="icon" href="../img/Icon/DeliveryJob.ico">
 
     <script src="script/scrollreveal.js"></script>
 

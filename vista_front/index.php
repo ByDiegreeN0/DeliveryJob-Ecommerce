@@ -8,7 +8,6 @@ if ($current_session !== null && isset($current_session['user_id'])) {
 }
 
 
-
 ?>
 
 <!DOCTYPE html>

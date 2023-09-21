@@ -511,6 +511,22 @@ iframe {
     height: 40px;
 }
 
+.error-message {
+    width: 100%;
+    padding: 3rem;
+}
+
+.error-message-h3 {
+    text-align: center;
+}
+
+.sad-icon {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
 
 /* USER Login/Register STYLES */
 

@@ -29,9 +29,8 @@ $Products = $Products->GetProducts();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -44,7 +43,7 @@ $Products = $Products->GetProducts();
 
 <body class="body">
 
-<div class="responsive-nav-container">
+    <div class="responsive-nav-container">
         <nav class="responsive-nav">
             <ul class="responsive-nav-ul" id="responsive-nav-ul">
                 <li> <a href="index.php">
@@ -113,7 +112,7 @@ $Products = $Products->GetProducts();
                             <h3 class="responsive-h3">Carrito de compras</h3>
                         </a>
                     </li>
-                    
+
 
                     <li>
                         <a href="users/user.php?userid=<?php echo $user_id ?>">
@@ -202,21 +201,27 @@ $Products = $Products->GetProducts();
 
     <div class="main-catalogo">
 
-        <?php if($Products){
-            foreach($Products as $row) ?>
-            <div class="catalogo-item">
-                <div class="catalogo-item-img">
-                    <img src="img/body/tenis.webp" alt="">
+        <?php if ($Products) {
+            foreach ($Products as $row) { ?>
+                <div class="catalogo-item">
+                    <div class="catalogo-item-img">
+                        <img src="img/body/tenis.webp" alt="">
+                    </div>
+                    <h2 class="catalogo-item-tittle"><?php echo $row['prod_name'] ?></h2>
+                    <p class="catalogo-item-price"><?php echo $row['prod_price'] ?></p>
+                    <div class="catalogo-item-button-container">
+                        <a href="item.php?id=<?php echo number_format($row['prod_id'], 2, ".", ",") ?>"><button class="catalogo-item-button">Ver Producto</button></a>
+                    </div>
                 </div>
-                <h2 class="catalogo-item-tittle"><?php echo $row['prod_name'] ?></h2>
-                <p class="catalogo-item-price"><?php echo $row['prod_price'] ?></p>
-                <div class="catalogo-item-button-container">
-                    <a href="item.php?id=<?php echo number_format($row['prod_id'], 2, ".", ",") ?>"><button class="catalogo-item-button">Ver Producto</button></a>
-                </div>
-            </div>
-        <?php  }else { ?>
+            <?php  }
+        } else { ?>
 
-            <h1>No hay productos disponibles</h1>
+            <div class="error-message">
+                <span class="material-symbols-outlined sad-icon">
+                    sentiment_sad
+                </span>
+                <h3 class="error-message-h3">En estos momentos no hay productos disponibles, intentalo mas tarde.</h3>
+            </div>
 
         <?php } ?>
 

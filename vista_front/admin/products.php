@@ -15,6 +15,9 @@ if ($current_session == null || $current_session == "") {
     header("LOCATION: 403.html");
 }
 
+$Products = new ProductsClass;
+$Products = $Products->GetProducts();
+
 
 
 
@@ -158,31 +161,42 @@ if ($current_session == null || $current_session == "") {
                     add
                 </span>
             </div>
-            <?php foreach ($Connect->query("SELECT * FROM tbl_products") as $row) { ?>
-                <div class="products-list-box-container">
+            <?php if ($Products) {
+                foreach ($Products as $row) {
+            ?>
 
-                    <div class="products-list-box">
-                        <img src="../img/body/tenis.jpeg" alt="" class="products-list-img">
-                    </div>
+                    <div class="products-list-box-container">
 
-                    <div class="products-list-content">
-                        <h2><?php echo $row['prod_name']; ?></h2>
-                        <h3><b>Descripción:</b><?php echo $row['prod_desc']; ?></h3>
-                        <h3><b>Stock:</b><?php echo $row['prod_stock']; ?></h3>
-                        <h3><b>Precio:</b> $ <?php echo $row['prod_price']; ?></h3>
-
-                        <div class="products-list-button-container">
-                            <a href="edit.php?id=<?php echo $row['prod_id'] ?>"><button class="products-list-button">Modificar</button></a>
-
-                            <a href="../../controlador_back/CrudController/delete-articulos.php?id=<?php echo $row['prod_id'] ?>"><button class="products-list-button products-delete">
-                                    <span class="material-symbols-outlined">
-                                        delete
-                                    </span>
-                                </button></a>
-
+                        <div class="products-list-box">
+                            <img src="../img/body/tenis.jpeg" alt="" class="products-list-img">
                         </div>
-                    </div>
 
+                        <div class="products-list-content">
+                            <h2><?php echo $row['prod_name']; ?></h2>
+                            <h3><b>Descripción:</b><?php echo $row['prod_desc']; ?></h3>
+                            <h3><b>Stock:</b><?php echo $row['prod_stock']; ?></h3>
+                            <h3><b>Precio:</b> $ <?php echo $row['prod_price']; ?></h3>
+
+                            <div class="products-list-button-container">
+                                <a href="edit.php?id=<?php echo $row['prod_id'] ?>"><button class="products-list-button">Modificar</button></a>
+
+                                <a href="../../controlador_back/CrudController/delete-articulos.php?id=<?php echo $row['prod_id'] ?>"><button class="products-list-button products-delete">
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                    </button></a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                <?php }
+            } else { ?>
+                <div class="error-message">
+                    <span class="material-symbols-outlined sad-icon">
+                        sentiment_sad
+                    </span>
+                    <h3 class="error-message-h3">No hay productos creados en este momento, intentalo mas tarde.</h3>
                 </div>
             <?php } ?>
 
@@ -199,7 +213,7 @@ if ($current_session == null || $current_session == "") {
 
             <form action="../../controlador_back/CrudController/insert-articulos.php" method="post" enctype="multipart/form-data" class="reminder-modal-form">
 
-                <input class="form-control" type="file" name="file" id="">
+                <input class="form-control" type="file" name="file" id="" required>
 
                 <label for="name">Nombre
                     <input class="form-control" type="text" name="name" id="" placeholder="Nombre del producto" required>

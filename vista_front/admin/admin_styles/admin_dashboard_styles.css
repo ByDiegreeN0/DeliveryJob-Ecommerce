@@ -400,6 +400,23 @@ textarea {
     border: 1px solid #000;
 }
 
+.error-message {
+    width: 100%;
+    padding: 3rem;
+}
+
+.error-message-h3 {
+    text-align: center;
+}
+
+.sad-icon {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
 
 
 /* Products edit styles */
