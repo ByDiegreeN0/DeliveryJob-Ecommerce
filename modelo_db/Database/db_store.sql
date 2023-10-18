@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2023 a las 03:12:43
--- Versión del servidor: 10.4.27-MariaDB
+-- Tiempo de generación: 19-10-2023 a las 01:29:57
+-- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,6 +34,13 @@ CREATE TABLE `tbl_admin` (
   `admin_email` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tbl_admin`
+--
+
+INSERT INTO `tbl_admin` (`admin_id`, `admin_username`, `admin_password`, `admin_email`) VALUES
+(1, '1', '1', '');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +68,13 @@ CREATE TABLE `tbl_notes` (
   `note_created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tbl_notes`
+--
+
+INSERT INTO `tbl_notes` (`note_id`, `note_tittle`, `note_text`, `note_created_at`) VALUES
+(1, 'y', 'uj', '2023-10-18 23:27:38');
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +93,13 @@ CREATE TABLE `tbl_products` (
   `prod_created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tbl_products`
+--
+
+INSERT INTO `tbl_products` (`prod_id`, `prod_img`, `prod_name`, `prod_desc`, `prod_price`, `prod_stock`, `prod_estado`, `prod_categoria`, `prod_created_at`) VALUES
+(1, 'hola.png', 'holall', 'hola', 1, 1, 'Activo', NULL, '2023-10-07 17:36:17');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +117,13 @@ CREATE TABLE `tbl_users` (
   `user_address` varchar(80) DEFAULT 'No se ha agregado una dirección',
   `user_created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_users`
+--
+
+INSERT INTO `tbl_users` (`user_id`, `user_username`, `user_password`, `user_ident`, `user_realname`, `user_email`, `user_phonenumber`, `user_address`, `user_created_at`) VALUES
+(1, 'ByDiegreeN', '123456789', 0, 'Diego', 'diegoalejandrogarcia140902@gmail.com', '+57 3214867673', 'No se ha proporcionado una dirección', '2023-10-07 17:35:18');
 
 -- --------------------------------------------------------
 
@@ -181,7 +209,7 @@ ALTER TABLE `tbl_venta`
 -- AUTO_INCREMENT de la tabla `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_message`
@@ -193,19 +221,19 @@ ALTER TABLE `tbl_message`
 -- AUTO_INCREMENT de la tabla `tbl_notes`
 --
 ALTER TABLE `tbl_notes`
-  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_venta`
