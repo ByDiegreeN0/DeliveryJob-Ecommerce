@@ -44,9 +44,58 @@ class ProductsClass extends DatabaseConnection {
 
     }
 
+    // Muestra los productos sin importar si el producto esta inactivo o activo
+
+    public function  GetAllProducts(){
+        $sql = "SELECT * FROM tbl_products";
+        $row = $this->Connect->query($sql);
+
+        if($row){
+            return $row->fetch_all(MYSQLI_ASSOC);
+        }else {
+            return false;
+        }
+    }
+
+
+        // Solo muestra productos si el producto esta activo
 
     public function  GetProducts(){
-        $sql = "SELECT * FROM tbl_products";
+        $sql = "SELECT * FROM tbl_products where prod_estado = 'Activo'";
+        $row = $this->Connect->query($sql);
+
+        if($row){
+            return $row->fetch_all(MYSQLI_ASSOC);
+        }else {
+            return false;
+        }
+    }
+
+    
+    public function GetProductsById($id){
+        $sql = "SELECT * FROM tbl_products where prod_id = ?";
+        $prepare = $this->Connect->prepare($sql);
+    
+        if($prepare){
+            $prepare->bind_param("i", $id); // Enlaza el valor de $id al marcador de posición
+            if($prepare->execute()){
+                $result = $prepare->get_result(); // Obtiene el resultado
+                return $result->fetch_assoc(); // Devuelve el resultado como un arreglo asociativo
+            } else {
+                return false;
+            }
+            $prepare->close();
+        } else {
+            return false;
+        }
+    }
+
+        // Muestra productos con un limite de 3
+
+
+    public function GetProductsLimit(){
+        $sql = "SELECT * FROM tbl_products where prod_estado = 'Activo' ORDER BY random() LIMIT 3";
+
         $row = $this->Connect->query($sql);
 
         if($row){

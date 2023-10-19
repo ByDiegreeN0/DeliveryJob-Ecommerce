@@ -15,7 +15,7 @@ if ($current_session == null || $current_session == "") {
 }
 
 $Products = new ProductsClass;
-$Products = $Products->GetProducts();
+$Products = $Products->GetAllProducts();
 
 
 
@@ -167,7 +167,7 @@ $Products = $Products->GetProducts();
                     <div class="products-list-box-container">
 
                         <div class="products-list-box">
-                            <img src="../img/body/tenis.jpeg" alt="" class="products-list-img">
+                            <img src="../<?php echo substr($row['prod_img'], 17); ?>" alt="" class="products-list-img">
                         </div>
 
                         <div class="products-list-content">

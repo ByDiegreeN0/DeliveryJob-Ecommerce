@@ -410,16 +410,21 @@ iframe {
     height: 434px;
     box-shadow: 1px 1px 15px;
     margin: 1rem;
+    border-radius: 20px;
 }
 
 
 .catalogo-item-img {
     width: 100%;
     justify-content: flex-start;
+ 
 }
 
 .catalogo-item-img img {
     width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    height: 308px;
 }
 
 .catalogo-item-tittle {
@@ -441,6 +446,7 @@ iframe {
     justify-content: center;
 }
 
+
 .catalogo-item-details-content {
     width: 100%;
 }
@@ -455,6 +461,7 @@ iframe {
     transition: all .3s ease;
     margin-top: 15px;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 .catalogo-item-button-submit {

@@ -155,13 +155,17 @@ $id = $_GET['id'];
             <div class="edit-products-box">
 
                 <div class="edit-products-img">
-                    <img src="admin_img/main.jfif" alt="">
+                    <img src="../<?php echo substr($row['prod_img'], 17); ?>" alt="">
                 </div>
 
                 <div class="edit-products-content">
-                    <form class="edit-products-form" action="../../controlador_back/CrudController/update-articulos.php" method="POST">
+                    <form class="edit-products-form" action="../../controlador_back/CrudController/update-articulos.php" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="id" value="<?php echo $row['prod_id']; ?>">
+
+                        <label for="img">
+                            <input type="file" name="img" id="" value="../<?php echo substr($row['prod_img'], 17); ?>">
+                        </label>
 
                         <label for="name">
                             <h2>Nombre del articulo</h2>

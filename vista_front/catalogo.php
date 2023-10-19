@@ -9,8 +9,7 @@ if ($current_session !== null && isset($current_session['user_id'])) {
     $user_id = $current_session['user_id'];
 }
 
-$ConnectionDB = new DatabaseConnection();
-$Connect = $ConnectionDB->connectDB();
+
 
 $Products = new ProductsClass;
 $Products = $Products->GetProducts();
@@ -205,7 +204,7 @@ $Products = $Products->GetProducts();
             foreach ($Products as $row) { ?>
                 <div class="catalogo-item">
                     <div class="catalogo-item-img">
-                        <img src="img/body/tenis.webp" alt="">
+                        <img src="<?php echo substr($row['prod_img'], 18); ?>" alt="<?php echo $row['prod_name'] ?>">
                     </div>
                     <h2 class="catalogo-item-tittle"><?php echo $row['prod_name'] ?></h2>
                     <p class="catalogo-item-price"><?php echo $row['prod_price'] ?></p>

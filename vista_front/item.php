@@ -9,11 +9,17 @@ if ($current_session !== null && isset($current_session['user_id'])) {
     $user_id = $current_session['user_id'];
 }
 
-$ConnectionDB = new DatabaseConnection();
-$Connect = $ConnectionDB->connectDB();
+
+
+$Products = new ProductsClass;
+
+
 
 $ProdID = $_GET['id'];
 
+
+$ProductsList = $Products->GetProductsById($ProdID);
+$RandomProducts = $Products->GetProductsLimit();
 
 
 
@@ -197,19 +203,21 @@ $ProdID = $_GET['id'];
         </nav>
     </div>
 
-    <div class="item-container">
-        <div class="img-container">
-            <img src="img/body/main.jfif" alt="producto">
-        </div>
+    <?php if($ProductsList){
+        foreach($ProductsList as $Product){ ?>
 
-        <?php foreach ($Connect->query("SELECT * FROM tbl_products WHERE prod_id = $ProdID") as $row) { ?>
+        <div class="item-container">
+            <div class="img-container">
+                <img src="<?php echo substr($Product['prod_img'], 18); ?>" alt="<?php echo $Product['prod_name'] ?>">
+            </div>
+
             <div class="item-content">
 
-                <h1 class="item-content-h1"><?php echo $row['prod_name'] ?></h1>
-                <p class="item-content-p"><b>Descripción: <br><br></b><?php echo $row['prod_desc'] ?></p>
+                <h1 class="item-content-h1"><?php echo $Product['prod_name'] ?></h1>
+                <p class="item-content-p"><b>Descripción: <br><br></b><?php echo $Product['prod_desc'] ?></p>
                 <div class="item-price">
-                    <h4><b>Precio:</b><br>$<?php echo $row['prod_price'] ?></h4>
-                    <h4><b>Stock:</b><br><?php echo $row['prod_stock'] ?></h4>
+                    <h4><b>Precio:</b><br>$<?php echo $Product['prod_price'] ?></h4>
+                    <h4><b>Stock:</b><br><?php echo $Product['prod_stock'] ?></h4>
                 </div>
 
                 <div class="catalogo-item-details-button-container">
@@ -220,7 +228,7 @@ $ProdID = $_GET['id'];
 
                     <div class="catalogo-item-details-content">
                         <form action="">
-                            <input type="hidden" name="id" value="<?php echo $row['prod_id'] ?>">
+                            <input type="hidden" name="id" value="<?php echo $Product['prod_id'] ?>">
                             <input class="catalogo-item-button catalogo-item-button-submit" type="submit" value="Agregar al carrito" required>
                             <input class="catalogo-item-button-form" type="number" name="cantidad" id="" required placeholder="cantidad" value="1">
                         </form>
@@ -232,110 +240,113 @@ $ProdID = $_GET['id'];
 
 
             </div>
-        <?php  } ?>
+        <?php  }} ?>
 
-    </div>
+        </div>
 
-    <div class="main-catalogo">
-        <?php foreach ($Connect->query("SELECT * FROM tbl_products LIMIT 4") as $row) { ?>
-            <div class="catalogo-item catalogo-item-details">
-                <div class="catalogo-item-img">
-                    <img src="img/body/tenis.webp" alt="">
+        <div class="main-catalogo">
+            <?php if($RandomProducts){
+                foreach ($RandomProducts as $RandomProduct){ ?>
+                <div class="catalogo-item catalogo-item-details">
+                    <div class="catalogo-item-img">
+                        <img src="<?php echo substr($RandomProduct['prod_img'], 18); ?>" alt="<?php echo $RandomProduct['prod_name'] ?>">
+                    </div>
+                    <h2 class="catalogo-item-tittle"><?php echo $RandomProduct['prod_name'] ?></h2>
+                    <p class="catalogo-item-price"><?php echo $RandomProduct['prod_price'] ?></p>
+                    <div class="catalogo-item-button-container">
+                        <a href="item.php?id=<?php echo number_format($RandomProduct['prod_id'], 2, ".", ",") ?>"><button class="catalogo-item-button">Ver Producto</button></a>
+                    </div>
                 </div>
-                <h2 class="catalogo-item-tittle"><?php echo $row['prod_name'] ?></h2>
-                <p class="catalogo-item-price"><?php echo $row['prod_price'] ?></p>
-                <div class="catalogo-item-button-container">
-                    <a href="item.php?id=<?php echo number_format($row['prod_id'], 2, ".", ",") ?>"><button class="catalogo-item-button">Ver Producto</button></a>
+            <?php }} ?>
+
+        </div>
+
+
+
+
+        <div class="footer-container">
+            <footer class="footer">
+                <div class="footer-p-container">
+                    <p class="footer-p"><b>Copyright:</b> Todos los derechos reservados</p>
                 </div>
-            </div>
-        <?php  } ?>
 
-    </div>
+            </footer>
 
-
+        </div>
 
 
-    <div class="footer-container">
-        <footer class="footer">
-            <div class="footer-p-container">
-                <p class="footer-p"><b>Copyright:</b> Todos los derechos reservados</p>
-            </div>
-
-        </footer>
-
-    </div>
+        <script src="script/responsive-nav.js"></script>
+        <script src="script/main.js"></script>
 
 
-    <script src="script/responsive-nav.js"></script>
-    <script src="script/main.js"></script>
+        <!-- PAYPAL -->
 
+        <script src="https://www.paypal.com/sdk/js?client-id=AZIc00LDVzcRH9EzRJ40xlwDAxMzcVyS8IbF_amFVSxsM8LtPxjEtquUCli3WjuCZxJSpquc6WjryjAa"></script>
 
-    <!-- PAYPAL -->
+        <script>
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+                style: {
+                    layout: 'horizontal'
+                },
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AZIc00LDVzcRH9EzRJ40xlwDAxMzcVyS8IbF_amFVSxsM8LtPxjEtquUCli3WjuCZxJSpquc6WjryjAa"></script>
+                // Call your server to set up the transaction
+                createOrder: function(data, actions) {
+                    return fetch('/demo/checkout/api/paypal/order/create/', {
+                        method: 'post'
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(orderData) {
+                        return orderData.id;
+                    });
+                },
 
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-            style: {
-                layout: 'horizontal'
-            },
+                // Call your server to finalize the transaction
+                onApprove: function(data, actions) {
+                    return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+                        method: 'post'
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(orderData) {
+                        // Three cases to handle:
+                        //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                        //   (2) Other non-recoverable errors -> Show a failure message
+                        //   (3) Successful transaction -> Show confirmation or thank you
 
-            // Call your server to set up the transaction
-            createOrder: function(data, actions) {
-                return fetch('/demo/checkout/api/paypal/order/create/', {
-                    method: 'post'
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    return orderData.id;
-                });
-            },
+                        // This example reads a v2/checkout/orders capture response, propagated from the server
+                        // You could use a different API or structure for your 'orderData'
+                        var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
 
-            // Call your server to finalize the transaction
-            onApprove: function(data, actions) {
-                return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
-                    method: 'post'
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    // Three cases to handle:
-                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                    //   (2) Other non-recoverable errors -> Show a failure message
-                    //   (3) Successful transaction -> Show confirmation or thank you
+                        if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                            return actions.restart(); // Recoverable state, per:
+                            // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        }
 
-                    // This example reads a v2/checkout/orders capture response, propagated from the server
-                    // You could use a different API or structure for your 'orderData'
-                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+                        if (errorDetail) {
+                            var msg = 'Sorry, your transaction could not be processed.';
+                            if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                            if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                            return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                        }
 
-                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-                        return actions.restart(); // Recoverable state, per:
-                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
-                    }
+                        // Successful capture! For demo purposes:
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        var transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
 
-                    if (errorDetail) {
-                        var msg = 'Sorry, your transaction could not be processed.';
-                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
-                    }
+                        // Replace the above to show a success message within this page, e.g.
+                        // const element = document.getElementById('paypal-button-container');
+                        // element.innerHTML = '';
+                        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+                    });
+                }
+            }).render('#paypal-button-container');
+        </script>
 
-                    // Successful capture! For demo purposes:
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+        <div id="paypal-button-container"></div>
 
-                    // Replace the above to show a success message within this page, e.g.
-                    // const element = document.getElementById('paypal-button-container');
-                    // element.innerHTML = '';
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                    // Or go to another URL:  actions.redirect('thank_you.html');
-                });
-            }
-        }).render('#paypal-button-container');
-    </script>
-
-<div id="paypal-button-container"></div>
+        <script src="path/to/chartjs/dist/chart.umd.js"></script>
 
 
 

@@ -1,4 +1,7 @@
-- mostrar imagenes en dashboard, catalogo.php e item.php
 - Chart con Chart.js
 - paypal
 - Reportes
+- enc contraseñas
+- eliminar imagen al eliminar producto
+- Restriccion al agregar un producto con el mismo nombre
+- actualizar foto edit.php
