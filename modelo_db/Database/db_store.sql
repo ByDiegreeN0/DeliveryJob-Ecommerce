@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2023 a las 01:29:57
+-- Tiempo de generación: 19-10-2023 a las 02:45:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -73,7 +73,8 @@ CREATE TABLE `tbl_notes` (
 --
 
 INSERT INTO `tbl_notes` (`note_id`, `note_tittle`, `note_text`, `note_created_at`) VALUES
-(1, 'y', 'uj', '2023-10-18 23:27:38');
+(3, 'Recordatorio 2', 'Este es un segundo recordatorio, para ver como funcionan los estilos al alargar un poco mas el texto ingresado en el imput de \"crear nota\"', '2023-10-19 00:07:17'),
+(5, 'MYSQL', 'Recordatorio creado con mysql y php\r\n', '2023-10-19 00:41:36');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,8 @@ CREATE TABLE `tbl_products` (
 --
 
 INSERT INTO `tbl_products` (`prod_id`, `prod_img`, `prod_name`, `prod_desc`, `prod_price`, `prod_stock`, `prod_estado`, `prod_categoria`, `prod_created_at`) VALUES
-(1, 'hola.png', 'holall', 'hola', 1, 1, 'Activo', NULL, '2023-10-07 17:36:17');
+(1, 'hola.png', 'zapato', 'hola', 150000, 4, 'Activo', NULL, '2023-10-07 17:36:17'),
+(2, '../../vista_front/img/Products/DreamShaper_v7_Logo_DesignThe_corporate_logo_for_DeliveryJob_i_3.jpg', 'Zapato Re-gud 2', 'descripcion de zapato re gud', 230000, 245, 'Activo', NULL, '2023-10-18 23:51:04');
 
 -- --------------------------------------------------------
 
@@ -221,13 +223,13 @@ ALTER TABLE `tbl_message`
 -- AUTO_INCREMENT de la tabla `tbl_notes`
 --
 ALTER TABLE `tbl_notes`
-  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_users`

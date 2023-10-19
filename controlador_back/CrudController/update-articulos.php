@@ -22,6 +22,7 @@ $id = $_POST['id'];
 if($Products->UpdateProducts($id, $img, $name, $desc, $price, $stock, $estado)){
     echo "<script>
     alert('Se actualizaron los articulos correctamente');
+    window.location.href = '../../vista_front/admin/products.php';
     </script>";
 } else {
     echo "<script>

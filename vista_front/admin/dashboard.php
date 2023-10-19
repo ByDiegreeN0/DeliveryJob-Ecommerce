@@ -1,17 +1,17 @@
 <?php
 require_once("../../modelo_db/Models/autoload.php");
 
-$ConnectionDB = new DatabaseConnection();
-$Connect = $ConnectionDB->connectDB();
 
 session_start();
-
 $current_session = $_SESSION['administrador'];
-
-
-if ($current_session == null || $current_session == ""){
+if ($current_session == null || $current_session == "") {
     header("LOCATION: 403.html");
 }
+
+// VARIABLES
+
+$Notes = new NotesClass;
+$Notes = $Notes->ReadNote();
 
 
 ?>
@@ -29,8 +29,7 @@ if ($current_session == null || $current_session == ""){
 
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="admin_styles/admin_dashboard_styles.css">
 
@@ -63,7 +62,7 @@ if ($current_session == null || $current_session == ""){
 
                 <li>
 
-                    <a  href="message.php">
+                    <a href="message.php">
                         <span class="material-symbols-outlined">
                             chat
                         </span>
@@ -73,7 +72,7 @@ if ($current_session == null || $current_session == ""){
 
 
                 <li>
-                    <a  href="admin.php">
+                    <a href="admin.php">
                         <span class="material-symbols-outlined">
                             shield_person
                         </span>
@@ -82,7 +81,7 @@ if ($current_session == null || $current_session == ""){
                 </li>
 
                 <li>
-                    <a  href="../../controlador_back/config/logout.php">
+                    <a href="../../controlador_back/config/logout.php">
                         <span class="material-symbols-outlined">
                             logout
                         </span>
@@ -235,13 +234,30 @@ if ($current_session == null || $current_session == ""){
         <section class="dashboard-reminder">
             <h1>Notas</h1>
 
-            <div class="dashboard-reminder-box reminder-done">
-                <h2>Titulo de la nota</h2>
-                <p>Contadordecaracteres.com es un contador automático de caracteres y palabras en un texto. Solo
-                    colocque el cursor dentro de la caja de textos y comienze a escribir y el contador de caracteres
-                    comenzara a contar sus palabras y caracteres a medida de que usted vaya escribiendo. esto es muy
-                    genial para </p>
-            </div>
+            <?php if ($Notes) {
+                foreach ($Notes as $Note) { ?>
+
+
+                    <div class="dashboard-reminder-box reminder-done">
+                        <span><?php echo $Note['note_created_at']; ?></span>
+                        <h2><?php echo $Note['note_tittle']; ?></h2>
+                        <p><?php echo $Note['note_text']; ?></p>
+                        
+                        <a class="reminder-link" href="../../controlador_back/CrudController/delete-notas.php?id=<?php echo $Note['note_id'] ?>"><button class="reminder-delete">
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                    </button></a>
+                    </div>
+
+                <?php }
+            } else { ?>
+
+                <div class="dashboard-reminder-box reminder-done">
+                    <h2>No se han insertado notas</h2>
+                    <p></p>
+                </div>
+            <?php } ?>
 
             <div id="dashboard-open-reminder-modal" class="dashboard-reminder-box">
                 <span class="material-symbols-outlined">

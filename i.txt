@@ -1,1 +1,4 @@
+- mostrar imagenes en dashboard, catalogo.php e item.php
+- Chart con Chart.js
 - paypal
+- Reportes

@@ -44,7 +44,8 @@ class NotesClass extends DatabaseConnection {
         $row = $this->Connect->query($sql);
 
         if($row){
-            $row->fetch_all(MYSQLI_ASSOC);
+            
+            return $row->fetch_all(MYSQLI_ASSOC);
         }else {
             return false;
         }

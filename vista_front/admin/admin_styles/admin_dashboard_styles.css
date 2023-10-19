@@ -310,6 +310,21 @@ textarea {
     width: 100%;
 }
 
+.reminder-link {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reminder-delete {
+    width: 35px;
+    height: 35px;
+    background-color: #ffb703;
+    border: 1px solid #ffb703;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .reminder-form-control:focus {
     outline: none;
     border: 1px solid #ff0000;
