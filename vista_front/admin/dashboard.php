@@ -175,6 +175,9 @@ $Notes = $Notes->ReadNote();
 
                 <div class="charts-box">
                     <h2>Grafica 1</h2>
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
 
                 <div class="charts-box">
@@ -242,12 +245,12 @@ $Notes = $Notes->ReadNote();
                         <span><?php echo $Note['note_created_at']; ?></span>
                         <h2><?php echo $Note['note_tittle']; ?></h2>
                         <p><?php echo $Note['note_text']; ?></p>
-                        
+
                         <a class="reminder-link" href="../../controlador_back/CrudController/delete-notas.php?id=<?php echo $Note['note_id'] ?>"><button class="reminder-delete">
-                                        <span class="material-symbols-outlined">
-                                            delete
-                                        </span>
-                                    </button></a>
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button></a>
                     </div>
 
                 <?php }
@@ -295,6 +298,9 @@ $Notes = $Notes->ReadNote();
 
     <script src="admin_scripts/admin_js.js"></script>
     <script src="admin_scripts/modal.js"></script>
+    <script src="admin_scripts/charts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 
 </html>

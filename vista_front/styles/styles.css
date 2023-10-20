@@ -411,6 +411,11 @@ iframe {
     box-shadow: 1px 1px 15px;
     margin: 1rem;
     border-radius: 20px;
+    transition: all .3s ease;
+}
+
+.catalogo-item:hover {
+    transform: translateY(-5%);
 }
 
 

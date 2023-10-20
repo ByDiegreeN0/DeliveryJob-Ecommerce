@@ -13,9 +13,9 @@ if ($current_session !== null && isset($current_session['user_id'])) {
 
 $Products = new ProductsClass;
 
+    $ProdID = $_GET['id'];
 
 
-$ProdID = $_GET['id'];
 
 
 $ProductsList = $Products->GetProductsById($ProdID);

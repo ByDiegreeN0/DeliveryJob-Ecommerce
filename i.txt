@@ -2,6 +2,4 @@
 - paypal
 - Reportes
 - enc contraseñas
-- eliminar imagen al eliminar producto
-- Restriccion al agregar un producto con el mismo nombre
 - actualizar foto edit.php

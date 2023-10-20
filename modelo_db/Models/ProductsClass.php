@@ -77,14 +77,14 @@ class ProductsClass extends DatabaseConnection {
         $prepare = $this->Connect->prepare($sql);
     
         if($prepare){
-            $prepare->bind_param("i", $id); // Enlaza el valor de $id al marcador de posición
+            $prepare->bind_param("i", $id);
             if($prepare->execute()){
-                $result = $prepare->get_result(); // Obtiene el resultado
-                return $result->fetch_assoc(); // Devuelve el resultado como un arreglo asociativo
+                $result = $prepare->get_result(); 
+                return $result->fetch_all(MYSQLI_ASSOC); 
             } else {
+                $prepare->close();
                 return false;
             }
-            $prepare->close();
         } else {
             return false;
         }
@@ -94,7 +94,7 @@ class ProductsClass extends DatabaseConnection {
 
 
     public function GetProductsLimit(){
-        $sql = "SELECT * FROM tbl_products where prod_estado = 'Activo' ORDER BY random() LIMIT 3";
+        $sql = "SELECT * FROM tbl_products where prod_estado = 'Activo' ORDER BY rand() LIMIT 3";
 
         $row = $this->Connect->query($sql);
 
@@ -130,6 +130,24 @@ class ProductsClass extends DatabaseConnection {
 
 
     public function DeleteProducts($id){
+
+        $sql = "SELECT prod_img FROM tbl_products WHERE prod_id = ?";
+        $prepare = $this->Connect->prepare($sql);
+
+        if($prepare){
+            $prepare->bind_param("i", $id);
+
+            if($prepare->execute()){
+                $result = $prepare->get_result();
+                $product = $result->fetch_assoc();
+                $imgPath = $product['prod_img'];
+
+                if(file_exists($imgPath)){
+                    unlink($imgPath);
+                };
+            }
+        }
+
         $sql = "DELETE FROM tbl_products WHERE prod_id = ?";
         $prepare = $this->Connect->prepare($sql);
 

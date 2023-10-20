@@ -6,11 +6,7 @@ $Products = new ProductsClass;
 
 $foto = $_FILES['file']['name'];
 $TmpFoto = $_FILES['file']['tmp_name'];
-
-
 $uploadDir = '../../vista_front/img/Products/';
-
-
 $img = $uploadDir . $foto;
 
 if (move_uploaded_file($TmpFoto, $img)) {
