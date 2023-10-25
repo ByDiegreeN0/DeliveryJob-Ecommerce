@@ -13,8 +13,6 @@ class UsersClass extends DatabaseConnection {
     private $UserAdress;
     private $Connect;
 
-
-
     public function __construct()
     {
         parent::__construct();

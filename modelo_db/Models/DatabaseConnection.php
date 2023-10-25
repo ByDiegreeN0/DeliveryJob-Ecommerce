@@ -36,4 +36,6 @@ class DatabaseConnection {
             $this->connect->close();
         }
     }
+
 }
+?>
